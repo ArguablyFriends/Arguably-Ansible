@@ -5,11 +5,22 @@
 - hosts: oraclelinux
   tasks:
     - name: Make sure everything is up to date ORACLE
-      ansible.builtin.shell:
-        cmd: yum -y upgrade
-        cmd: yum -y install epel-release
-        cmd: yum repolist
-        become: true
+      ansible.builtin.command: yum -y upgrade
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    - name: Check if EPEL is enabled ORACLE
+      ansible.builtin.command: yum -y install epel-release
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+
+    -name: Check and output RepoList ORACLE
+      ansible.builtin.command: yum repolist
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
 
 - hosts: ubuntuserver
   tasks:
