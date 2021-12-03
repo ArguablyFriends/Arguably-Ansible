@@ -16,7 +16,7 @@
     - debug:
         var: command_output.stdout_lines
 
-    -name: Check and output RepoList ORACLE
+    - name: Check and output RepoList ORACLE
       ansible.builtin.command: yum repolist
       register: command_output
     - debug:
