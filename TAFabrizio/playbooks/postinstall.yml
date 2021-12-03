@@ -25,11 +25,12 @@
 - hosts: ubuntuserver
   tasks:
     - name: Make sure everything is up to date UBUNTU
-      ansible.builtin.shell:
-        cmd: sudo apt-get update
-        cmd: sudo apt-get -y upgrade
-        become: true
-
+      shell: sudo apt-get upgrade
+      become: true
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
+        
 #####Start OS Agnostic Checks/Installs#####
 
 - hosts: all
